@@ -45,7 +45,7 @@ class Classifier(object):
                 self.nFoldsParam = 10
                 self.classifierModel = train(self.trainTargets, self.trainFeatures, '-c ' + str(self.cParam))
                 train(self.trainTargets, self.trainFeatures, '-c ' + str(self.cParam) + ' -v ' + str(self.nFoldsParam))
-            if(self.packageType == "liblinear"):
+            if(self.packageType == "libsvm"):
                 from svmutil import svm_train
                 self.cParam = 32# Best cross validation accuracy
                 self.nFoldsParam = 10
