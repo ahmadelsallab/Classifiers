@@ -26,9 +26,9 @@ class Classifier(object):
         self.ParseConfigFile(configDocName)
                  
         self.trainFeatures = trainFeatures
-        self.trainTargets = trainTargets
-        self.testFeatures = testFeatures
-        self.testTargets = testTargets
+        self.trainTargets  = trainTargets
+        self.testFeatures  = testFeatures
+        self.testTargets   = testTargets
                 
         # Store the serialization file
         self.featuresSerializationFileName = featuresSerializationFileName 

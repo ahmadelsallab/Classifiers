@@ -41,6 +41,8 @@ function [mFeatures, mTargets, nBitfieldLength, vChunkLength, vOffset] = DCONV_c
             
         otherwise
             nBitfieldLength = 0;
+            vChunkLength = 0;
+            vOffset = 0;
     end % end switch   
     
     nLineCtr = 0;

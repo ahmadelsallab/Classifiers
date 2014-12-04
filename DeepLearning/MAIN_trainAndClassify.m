@@ -32,7 +32,7 @@ function MAIN_trainAndClassify(CONFIG_strParams)
 			% Do nothing
 	end
 	
-	if(CONFIG_strParams.bReduceTrainingSetSize)
+	if(CONFIG_strParams.bReduceTrainingSetSizeWithMapping)
 		fprintf(1, 'Reducing training set to %d percent...\n', CONFIG_strParams.nDesiredTrainSetSizePercent);
         load(CONFIG_strParams.sInputDataWorkspace);
 
