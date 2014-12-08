@@ -41,7 +41,7 @@ class Classifier(object):
             
             if(self.packageType == "liblinear"):
                 from liblinearutil import train            
-                self.cParam = 0# Best cross validation accuracy
+                self.cParam = 4# Best cross validation accuracy
                 self.nFoldsParam = 10
                 self.classifierModel = train(self.trainTargets, self.trainFeatures, '-c ' + str(self.cParam))
                 train(self.trainTargets, self.trainFeatures, '-c ' + str(self.cParam) + ' -v ' + str(self.nFoldsParam))
