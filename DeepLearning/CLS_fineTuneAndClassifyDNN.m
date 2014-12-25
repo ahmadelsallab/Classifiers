@@ -30,6 +30,7 @@ function [NM_strNetParams, TST_strPerformanceInfo] = CLS_fineTuneAndClassifyDNN(
 
     % Initialize test error to huge number
     TST_strPerformanceInfo.nMinTestError = 1000000;
+    TST_strPerformanceInfo.nMinTrainError = 1000000;
     
     fprintf(1,'\nTraining discriminative model on the train dataset by minimizing cross entropy error. \n');
     %load(CONFIG_strParams.sInputDataWorkspace);
@@ -114,8 +115,8 @@ function [NM_strNetParams, TST_strPerformanceInfo] = CLS_fineTuneAndClassifyDNN(
                 nEpoch, TST_strPerformanceInfo.vTrainErr(nEpoch), nNumTrainExamples * nNumTrainBatches, TST_strPerformanceInfo.vTestErr(nEpoch),nNumTestExamples * nNumTestBatches);
 
         % Keep the weigths if error is minimized
-        if TST_strPerformanceInfo.vTestErr(nEpoch) <= TST_strPerformanceInfo.nMinTestError
-            TST_strPerformanceInfo.nMinTestError = TST_strPerformanceInfo.vTestErr(nEpoch);
+        if TST_strPerformanceInfo.vTrainErr(nEpoch) <= TST_strPerformanceInfo.nMinTrainError
+            TST_strPerformanceInfo.nMinTrainError = TST_strPerformanceInfo.vTrainErr(nEpoch);
             for(ctrLayer = 1 : NM_strNetParams.nNumLayers)
                 CLS_strPrvt.cMinErrWeights{ctrLayer} = NM_strNetParams.cWeights{ctrLayer};
             end

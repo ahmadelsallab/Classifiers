@@ -28,6 +28,10 @@ function MAIN_trainAndClassify(CONFIG_strParams)
 		
 		case 'Diacritization'
 			% Do nothing, a C# preprocessor has run and provided the required CONFIG_strParams.sInputDataWorkspace = input_data.mat
+        case 'ATB_Senti'
+        	% The output of conversion is saved in CONFIG_strParams.sInputDataWorkspace
+			DCONV_convertATB_Senti(CONFIG_strParams);
+            
 		otherwise
 			% Do nothing
 	end
