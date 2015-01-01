@@ -6,7 +6,7 @@
 % Output:
 % None
 function MAIN_trainAndClassify(CONFIG_strParams)    
-    
+    rand('state',0);
     fprintf(1, 'Converting input files...\n');
 	% Check the dataset used
 	switch(CONFIG_strParams.sDataset)

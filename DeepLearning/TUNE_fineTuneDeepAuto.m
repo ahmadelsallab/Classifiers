@@ -21,7 +21,7 @@ function [NM_strNetParams, TST_strPerformanceInfo] = TUNE_fineTuneDeepAuto(NM_st
                                                                                 nPhase, nNumPhases, hFidLog, bMapping,...
                                                                                 nBitfieldLength, vChunkLength, vOffset, eFeaturesMode)
 
-    CLS_strPrvt.nBPMaxEpoch = CONFIG_strParams.nBPNumEpochsDuringMapping;
+    CLS_strPrvt.nBPMaxEpoch = CONFIG_strParams.nBPNumEpochsBeforeMapping;
     fprintf(1,'\nFine-tuning deep autoencoder by minimizing cross entropy error. \n');
     
     % The number of targets is the 2nd dimension of the 3-D matrix mTrainBatchTargets

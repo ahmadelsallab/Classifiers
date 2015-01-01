@@ -70,7 +70,13 @@ while (layer >= 1)
             Ix{layer} = BP_deltaUnit(NW_unitWeights{layer}, NW_unitWProbs{layer}, Ix_upper, w_upper);
             
         otherwise
-            Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(1-BP_wprobs{layer});
+            global sActivationFunction;
+            switch(sActivationFunction)
+                case 'tanh'
+                    Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(BP_wprobs{layer});
+                case 'sigmoid'
+                     Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(1-BP_wprobs{layer});
+            end            
             Ix{layer} = Ix{layer}(:,1:end-1);
 
     end % end-switch

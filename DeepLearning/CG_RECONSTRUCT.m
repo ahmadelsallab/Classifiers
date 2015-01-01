@@ -98,7 +98,15 @@ dw{N_layers} = BP_wprobs{layer}'*Ix{N_layers};
 
 w_upper = NW_weights{N_layers};
 while (layer >= 1)
-    Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(1-BP_wprobs{layer});
+    global sActivationFunction;
+    switch(sActivationFunction)
+        case 'tanh'
+            Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(BP_wprobs{layer});
+
+        case 'sigmoid'
+            Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(1-BP_wprobs{layer});
+
+    end 
     Ix{layer} = Ix{layer}(:,1:end-1);
     if(layer ~= 1)
         dw{layer} = (BP_wprobs{layer-1})'*Ix{layer};

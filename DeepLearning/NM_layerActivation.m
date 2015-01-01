@@ -8,6 +8,16 @@
 % augmentedActivation: same as activation with ones colomn augmentation
 
 function [activation, augmentedActivation] = NM_layerActivation(data, weight)
-    activation = 1./(1 + exp(-data*weight));
+    global sActivationFunction;
+    switch(sActivationFunction)
+        case 'tanh'
+            activation = (exp(data*weight) - exp(-data*weight))./(exp(data*weight) + exp(-data*weight));
+
+        case 'sigmoid'
+            activation = 1./(1 + exp(-data*weight));
+
+    end
+    
+    
     augmentedActivation = [activation ones(size(data,1), 1)];
 end

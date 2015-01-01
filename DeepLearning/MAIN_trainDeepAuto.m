@@ -6,7 +6,7 @@
 % Output:
 % None
 function MAIN_trainDeepAuto(CONFIG_strParams)    
-    
+    rand('state',0);
     fprintf(1, 'Converting input files...\n');
 	% Check the dataset used
 	switch(CONFIG_strParams.sDataset)
@@ -28,11 +28,15 @@ function MAIN_trainDeepAuto(CONFIG_strParams)
 		
 		case 'Diacritization'
 			% Do nothing, a C# preprocessor has run and provided the required CONFIG_strParams.sInputDataWorkspace = input_data.mat
+        case 'ATB_Senti'
+        	% The output of conversion is saved in CONFIG_strParams.sInputDataWorkspace
+			DCONV_convertATB_Senti(CONFIG_strParams);
+            
 		otherwise
 			% Do nothing
 	end
-    
-	if(CONFIG_strParams.bReduceTrainingSetSize)
+	
+	if(CONFIG_strParams.bReduceTrainingSetSizeWithMapping)
 		fprintf(1, 'Reducing training set to %d percent...\n', CONFIG_strParams.nDesiredTrainSetSizePercent);
         load(CONFIG_strParams.sInputDataWorkspace);
 
@@ -42,8 +46,8 @@ function MAIN_trainDeepAuto(CONFIG_strParams)
 		save(CONFIG_strParams.sInputDataWorkspace, '-v7.3', 'mTestFeatures', 'mTestTargets', 'mTrainFeatures', 'mTrainTargets');
 		
 		fprintf(1, 'Reduction done successfuly\n');
-	end
-	% Check the input format
+	end	
+    
     switch (CONFIG_strParams.sInputFormat)
         case 'MATLAB'
             % Convert raw data to matlab vars
