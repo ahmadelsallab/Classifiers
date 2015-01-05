@@ -17,6 +17,7 @@
 % Output:
 % None
 function [NM_strNetParams, TST_strPerformanceInfo] = CLS_fineTuneAndClassifyDNN(NM_strNetParams, CONFIG_strParams, TST_strPerformanceInfo,...
+                                                                                mDevTargets, mDevFeatures,...
                                                                                 mTrainBatchTargets, mTrainBatchData, mTestBatchTargets, mTestBatchData,...
                                                                                 nPhase, nNumPhases, hFidLog, bMapping,...
                                                                                 nBitfieldLength, vChunkLength, vOffset, eFeaturesMode)
@@ -77,9 +78,21 @@ function [NM_strNetParams, TST_strPerformanceInfo] = CLS_fineTuneAndClassifyDNN(
 
     %%%%%%%%%% END OF PREINITIALIZATION OF WEIGHTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+    %%%%%%%%%% END OF PREINITIALIZATION OF WEIGHTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Set previous dev err to max value
+    nPrevDevErr = 100000;
+
+    % Initialize the learning rate
+    lrate = 0.1;
+    minrate = 0.0001;
+
     %%%%%%%%%%%%%%%%%%%%%%%% START FINE TUNING  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     for nEpoch = 1 : CLS_strPrvt.nBPMaxEpoch
-        
+        if(nEpoch < 5)
+            momentum = 0.0;
+        else
+            momentum = 0.9;
+        end;
         % If bBPKeepMinWeightsEveryEpoch is configured 1 then set the
         % previous weights (Net and Class) to the minimum error weights reached ever
         if ((bMapping == 1) && (CONFIG_strParams.bBPKeepMinWeightsEveryEpoch == 1))
@@ -123,9 +136,52 @@ function [NM_strNetParams, TST_strPerformanceInfo] = CLS_fineTuneAndClassifyDNN(
             CLS_strPrvt.mClassWeightsMinErr = NM_strNetParams.mClassWeights;
         end
     %%%%%%%%%%%%%%%%%%%% START BACKPROP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
-        [cWeights, NM_strNetParams] = BP_startBackProp(CONFIG_strParams, NM_strNetParams, mTrainBatchData, mTrainBatchTargets,...
-                                                       nEpoch, CLS_strPrvt.vLayersSize, CLS_strPrvt.cPrevWeights, CLS_strPrvt.mPrevClassWeights, nPhase, nNumPhases, bMapping,...
-                                                       nBitfieldLength, vChunkLength, vOffset, eFeaturesMode);
+        switch(CONFIG_strParams.sMinimzerType)
+            case 'CG'
+                [cWeights, NM_strNetParams] = BP_startBackProp(CONFIG_strParams, NM_strNetParams, mTrainBatchData, mTrainBatchTargets,...
+                                                               nEpoch, CLS_strPrvt.vLayersSize, CLS_strPrvt.cPrevWeights, CLS_strPrvt.mPrevClassWeights, nPhase, nNumPhases, bMapping,...
+                                                               nBitfieldLength, vChunkLength, vOffset, eFeaturesMode);
+            case 'SGD'
+                
+                % Keep old weights to roll back if needed
+                CLS_strPrvt.cPrevWeights = NM_strNetParams.cWeights;
+                CLS_strPrvt.mPrevClassWeights = NM_strNetParams.mClassWeights;
+                
+                [NM_strNetParams] = BP_startBackProp_SGD(CONFIG_strParams, NM_strNetParams, ...
+                                                                   mTrainBatchData, mTrainBatchTargets,...
+                                                                   nEpoch, CLS_strPrvt.vLayersSize, CLS_strPrvt.cPrevWeights, CLS_strPrvt.mPrevClassWeights, nPhase, nNumPhases, bMapping,...
+                                                                   nBitfieldLength, vChunkLength, vOffset, eFeaturesMode, momentum, lrate);
+                
+                %%%%%%%%%%%%%%%%%%%% COMPUTE Development set MISCLASSIFICATION ERROR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                [nDevErr] =...
+                    TST_computeClassificationErrDNN(mDevFeatures, mDevTargets, NM_strNetParams, bMapping, CONFIG_strParams.eMappingDirection,...
+                                                    CONFIG_strParams.eMappingMode, nPhase, nNumPhases, 'EPOCH_ERR_CALC', nBitfieldLength, vChunkLength, vOffset, eFeaturesMode);
+
+                % Calculate accuracy ratio
+                nErrRatio = (nDevErr - nPrevDevErr)*1.0/(nPrevDevErr+1);
+                % Check if dev err reduced
+                if(nErrRatio <= 0.0)
+                    % Accept this epoch
+                    nPrevDevErr = nDevErr;
+                    fprintf(1, 'Epoch accepted, dev error ratio= %d, lrate = %d\n', nErrRatio, lrate);
+                else
+                    % Reduce learning rate
+                    lrate = lrate / 2.0;
+                    % Roll back to old weights
+                    NM_strNetParams.cWeights = CLS_strPrvt.cPrevWeights;
+                    NM_strNetParams.mClassWeights = CLS_strPrvt.mPrevClassWeights;
+                    % Check if min rate reached
+                    if(lrate <= minrate)
+                        fprintf(1, 'Minimum learning rate reached, dev error ratio= %d\n', nErrRatio);
+                        % Stop
+                        break;
+                    else
+                        fprintf(1, 'Epoch rejected, dev error ratio= %d, lrate = %d\n', nErrRatio, lrate);
+                    end
+                end
+
+
+        end
     %%%%%%%%%%%%%%%%%%%% END BACKPROP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
          % If bBPKeepMinWeightsEveryEpoch is configured, then save the

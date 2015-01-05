@@ -11,7 +11,8 @@ function [activation, augmentedActivation] = NM_layerActivation(data, weight)
     global sActivationFunction;
     switch(sActivationFunction)
         case 'tanh'
-            activation = (exp(data*weight) - exp(-data*weight))./(exp(data*weight) + exp(-data*weight));
+            %activation = (exp(data*weight) - exp(-data*weight))./(exp(data*weight) + exp(-data*weight));
+            activation = tanh(data*weight);
 
         case 'sigmoid'
             activation = 1./(1 + exp(-data*weight));

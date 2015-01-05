@@ -47,7 +47,21 @@ function MAIN_trainAndClassify(CONFIG_strParams)
 		
 		fprintf(1, 'Reduction done successfuly\n');
 	end	
+    if(CONFIG_strParams.nDevSetPercent > 0)
+		fprintf(1, 'Creating development set %d percent of training data...\n', CONFIG_strParams.nDevSetPercent);
+        load(CONFIG_strParams.sInputDataWorkspace);
+        
+        mDevFeatures = mTrainFeatures(1 : floor(size(mTrainFeatures, 1) * (CONFIG_strParams.nDevSetPercent / 100)), :);
+        mDevTargets = mTrainTargets(1 : floor(size(mTrainTargets, 1) * (CONFIG_strParams.nDevSetPercent / 100)), :);
     
+        mTrainFeatures = mTrainFeatures(1 : floor(size(mTrainFeatures, 1) * (1 - (CONFIG_strParams.nDevSetPercent / 100))), :);
+        mTrainTargets = mTrainTargets(1 : floor(size(mTrainTargets, 1) * (1 - (CONFIG_strParams.nDevSetPercent / 100))), :);
+		
+		save(CONFIG_strParams.sInputDataWorkspace, '-v7.3', 'mTestFeatures', 'mTestTargets', 'mTrainFeatures', 'mTrainTargets');
+		
+		fprintf(1, 'Development set created successfuly\n');
+        
+    end
     switch (CONFIG_strParams.sInputFormat)
         case 'MATLAB'
             % Convert raw data to matlab vars
@@ -145,7 +159,7 @@ function MAIN_trainAndClassify(CONFIG_strParams)
          
     end
     
-	fprintf(1, 'Splitting done successfuly\n');
+	fprintf(1, 'Splitting done successfully\n');
 
     % Load auto label data if enabled
  	[DPREP_strData.mTrainTargets, DPREP_strData.mAutoLabels] = DPREP_autoLabel(DPREP_strData.mTrainTargets, CONFIG_strParams);
@@ -193,6 +207,7 @@ function MAIN_trainAndClassify(CONFIG_strParams)
 			
 			% Start the learning process
 			LM_startLearningProcessDNN(CONFIG_strParams,...
+                                       mDevFeatures, mDevTargets,...
                                        DPREP_strData.mTestFeatures, DPREP_strData.mTestTargets, DPREP_strData.mTrainFeatures, DPREP_strData.mTrainTargets,...
                                        DPREP_strData.mTrainBatchTargets, DPREP_strData.mTrainBatchData, DPREP_strData.mTestBatchTargets, DPREP_strData.mTestBatchData,...
                                        DPREP_strData.nBitfieldLength, DPREP_strData.vChunkLength, DPREP_strData.vOffset, DPREP_strData.mAutoLabels);

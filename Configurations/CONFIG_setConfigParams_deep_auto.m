@@ -4,38 +4,30 @@
 % None.
 % Output:
 % CONFIG_strParams: Structure of all configuration parameters
-function [CONFIG_strParams] = CONFIG_setConfigParams()
+function [CONFIG_strParams] = CONFIG_setConfigParams_deep_auto()
 
     % Path of the classifier code. For relative path: it'll run from the
     % configuration env. path, so it should be relative to it
-    CONFIG_strParams.sDefaultClassifierPath = '..\..\..\..\Generic Classifier\Generic_Classifier_0.16';
+    CONFIG_strParams.sDefaultClassifierPath = '..\classifiers\DeepLearning\';
     
     % Path to the environment of input and results file of the current
     % configuration. For relative path: it'll run from inside the
     % classifier folder path, so it should be relative to it
 	CONFIG_strParams.sConfigEnvPath = pwd;
     
+    % Desired reduction of the training set
+    % It is represented in the form of percent of the original set size
+	CONFIG_strParams.bReduceTrainingSetSizeWithMapping = 0;
+    CONFIG_strParams.nDesiredTrainSetSizePercent = 90;
+	
+	% Flag to be set to 1 if doubling the dataset size is required each mapping phase
+	CONFIG_strParams.bDoubleTrainingSetSizeWithMapping = 0;
+	
     % Global configuration defining the activation of neuron:
     % sigmoid
     % tanh
     global sActivationFunction;
     sActivationFunction = 'tanh';
-    % Desired reduction of the training set
-    % It is represented in the form of percent of the original set size
-	CONFIG_strParams.bReduceTrainingSetSizeWithMapping = 0;
-    CONFIG_strParams.nDesiredTrainSetSizePercent = 90;
-    
-    % Development set (held out data) ratio in %
-    CONFIG_strParams.nDevSetPercent = 10;
-    
-    % Type of minimizer
-    % CG: Conjugate Gradients
-    % SGD: Stochastic Gradient Descent
-    CONFIG_strParams.sMinimzerType = 'SGD'
-	
-	% Flag to be set to 1 if doubling the dataset size is required each mapping phase
-	CONFIG_strParams.bDoubleTrainingSetSizeWithMapping = 0;
-	
 	
     % Configuration of the input format
     % MATLAB: the input is just an auto-generated matlab function setting
@@ -47,13 +39,13 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
 	% MNIST
 	% Diacritization
 	% TIMIT (Not supported yet)
-	CONFIG_strParams.sDataset = 'MNIST';
+	CONFIG_strParams.sDataset = 'ATB_Senti';
 	
 	% The path of the dataset files
-	CONFIG_strParams.sDatasetFilesPath = '..\..\Number Recognition\MNIST\Dataset';
+	CONFIG_strParams.sDatasetFilesPath = 'C:\Non_valeo\Research\PostDoc\Sentiment Analysis\Code\Datasets\ATB\';
 	
 	% In case subclass training is required, only subset targets are permitted in the dataset
-	CONFIG_strParams.vSubClassTargets = 0:9;
+	CONFIG_strParams.vSubClassTargets = 0:1;
     
     % Path of the features file
     CONFIG_strParams.sDefaultPath = CONFIG_strParams.sConfigEnvPath;
@@ -62,20 +54,21 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.sMemorySavingMode = 'OFF';
     
     % Features file name
-    CONFIG_strParams.sFeaturesFileName = 'features_Raw.txt';
-    CONFIG_strParams.eFeaturesMode = 'Ready';
+    CONFIG_strParams.sFeaturesFileName = 'features\arsenl_lemma (SentiScore).csv';
+    
+    CONFIG_strParams.eFeaturesMode = 'Normal';
     
     % Name of the workspace to save the error structure
     CONFIG_strParams.sNameofErrWorkspace = [CONFIG_strParams.sConfigEnvPath '\err_performance.mat'];
     
     % Name of the input data structures workspace
-    CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data_reduced.mat'];
+    CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data.mat'];
     
     % Name of the input data structures workspace
-    CONFIG_strParams.sNetDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\final_net.mat'];
+    CONFIG_strParams.sNetDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\final_net_deep_auto.mat'];
 
     % Form the full path of the features file
-    CONFIG_strParams.fullRawDataFileName = [CONFIG_strParams.sConfigEnvPath '\' CONFIG_strParams.sFeaturesFileName];
+    CONFIG_strParams.fullRawDataFileName = ['..\..\output_results\' CONFIG_strParams.sFeaturesFileName];
     
     % Split the input data 'uniform' or 'random'
     CONFIG_strParams.sSplitCriteria = 'random';
@@ -114,25 +107,25 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.nInitialNumLayers = 3;% Execluding input and top/targets/output layer
     
     % The architecture of the initial net
-    CONFIG_strParams.vInitialLayersWidths = [500 500 2000];
+    CONFIG_strParams.vInitialLayersWidths = [100 50 20];
     
     % The final first layer width. This ratio shall be used to inflate all
     % other layers. Example: if init layer width = 100 and final one = 500,
     % then all final layers will be multiplied by 5.
-    CONFIG_strParams.nFinalFirstLayerWidth = 1000;
+    CONFIG_strParams.nFinalFirstLayerWidth = 100;
     
     % In case of depth, this is the final depth required.
     CONFIG_strParams.nFinalNumLayers = 3;
     
     % Number of iterations in backprop in which only upper layer weights
     % are updated
-    CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 2;
+    CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 6;
     
     % Number of epochs in backprop training the basic net before mapping (re-use) starts 
-    CONFIG_strParams.nBPNumEpochsBeforeMapping = 200;
+    CONFIG_strParams.nBPNumEpochsBeforeMapping = 10;
     
     % Number of epochs in backprop training during mapping (re-use) phase
-    CONFIG_strParams.nBPNumEpochsDuringMapping = 20;
+    CONFIG_strParams.nBPNumEpochsDuringMapping = 1;
     
     % Iterations to call CG minimizer
     CONFIG_strParams.nMaxIterCGMinimizer = 3;
@@ -145,7 +138,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.bEnablePretraining = 1;
         if (CONFIG_strParams.bEnablePretraining == 1) 
             % Pre-training (RBM) epochs
-            CONFIG_strParams.nPreTrainEpochs = 20;
+            CONFIG_strParams.nPreTrainEpochs = 50;
         else
             CONFIG_strParams.nPreTrainEpochs = 0;
         end % end if
@@ -163,7 +156,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     % TRAIN_UPPER_LAYER_ONLY
     % TRAIN_UPPER_N_LAYERS
     % TRAIN_ALL_LAYERS
-    CONFIG_strParams.eBPTrainUpperLayersMode = 'TRAIN_UPPER_LAYER_ONLY';
+    CONFIG_strParams.eBPTrainUpperLayersMode = 'TRAIN_ALL_LAYERS';
     
     switch(CONFIG_strParams.eBPTrainUpperLayersMode)
         case 'TRAIN_UPPER_LAYER_ONLY'
