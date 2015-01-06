@@ -60,6 +60,9 @@ function MAIN_trainAndClassify(CONFIG_strParams)
 		save(CONFIG_strParams.sInputDataWorkspace, '-v7.3', 'mTestFeatures', 'mTestTargets', 'mTrainFeatures', 'mTrainTargets');
 		
 		fprintf(1, 'Development set created successfuly\n');
+    else
+        mDevFeatures = [];
+        mDevTargets = [];
         
     end
     switch (CONFIG_strParams.sInputFormat)
