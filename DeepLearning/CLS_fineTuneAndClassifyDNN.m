@@ -83,8 +83,8 @@ function [NM_strNetParams, TST_strPerformanceInfo] = CLS_fineTuneAndClassifyDNN(
     nPrevDevErr = 100000;
 
     % Initialize the learning rate
-    lrate = 0.1;
-    minrate = 0.0001;
+    lrate = 0.0001;
+    minrate = 0.000001;
 
     %%%%%%%%%%%%%%%%%%%%%%%% START FINE TUNING  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     for nEpoch = 1 : CLS_strPrvt.nBPMaxEpoch
