@@ -8,7 +8,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
 
     % Path of the classifier code. For relative path: it'll run from the
     % configuration env. path, so it should be relative to it
-    CONFIG_strParams.sDefaultClassifierPath = '..\..\..\..\Generic Classifier\Generic_Classifier_0.16';
+    CONFIG_strParams.sDefaultClassifierPath = '..\DeepLearning\';
     
     % Path to the environment of input and results file of the current
     % configuration. For relative path: it'll run from inside the
@@ -26,12 +26,12 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.nDesiredTrainSetSizePercent = 90;
     
     % Development set (held out data) ratio in %
-    CONFIG_strParams.nDevSetPercent = 10;
+    CONFIG_strParams.nDevSetPercent = 0;
     
     % Type of minimizer
     % CG: Conjugate Gradients
     % SGD: Stochastic Gradient Descent
-    CONFIG_strParams.sMinimzerType = 'SGD';
+    CONFIG_strParams.sMinimzerType = 'CG';
 	
 	% Flag to be set to 1 if doubling the dataset size is required each mapping phase
 	CONFIG_strParams.bDoubleTrainingSetSizeWithMapping = 0;
@@ -47,13 +47,13 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
 	% MNIST
 	% Diacritization
 	% TIMIT (Not supported yet)
-	CONFIG_strParams.sDataset = 'MNIST';
+	CONFIG_strParams.sDataset = 'ATB_Senti';
 	
 	% The path of the dataset files
-	CONFIG_strParams.sDatasetFilesPath = '..\..\Number Recognition\MNIST\Dataset';
+	CONFIG_strParams.sDatasetFilesPath = 'C:\Non_valeo\Research\PostDoc\Sentiment Analysis\Code\Datasets\ATB\';
 	
 	% In case subclass training is required, only subset targets are permitted in the dataset
-	CONFIG_strParams.vSubClassTargets = 0:9;
+	CONFIG_strParams.vSubClassTargets = 0:1;
     
     % Path of the features file
     CONFIG_strParams.sDefaultPath = CONFIG_strParams.sConfigEnvPath;
@@ -62,8 +62,9 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.sMemorySavingMode = 'OFF';
     
     % Features file name
-    CONFIG_strParams.sFeaturesFileName = 'features_Raw.txt';
-    CONFIG_strParams.eFeaturesMode = 'Ready';
+    CONFIG_strParams.sFeaturesFileName = 'features\arsenl_lemma (SentiScore).csv';
+    
+    CONFIG_strParams.eFeaturesMode = 'Normal';
     
     % Name of the workspace to save the error structure
     CONFIG_strParams.sNameofErrWorkspace = [CONFIG_strParams.sConfigEnvPath '\err_performance.mat'];
@@ -75,7 +76,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.sNetDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\final_net.mat'];
 
     % Form the full path of the features file
-    CONFIG_strParams.fullRawDataFileName = [CONFIG_strParams.sConfigEnvPath '\' CONFIG_strParams.sFeaturesFileName];
+    CONFIG_strParams.fullRawDataFileName = ['..\..\output_results\' CONFIG_strParams.sFeaturesFileName];
     
     % Split the input data 'uniform' or 'random'
     CONFIG_strParams.sSplitCriteria = 'random';
@@ -114,22 +115,22 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.nInitialNumLayers = 3;% Execluding input and top/targets/output layer
     
     % The architecture of the initial net
-    CONFIG_strParams.vInitialLayersWidths = [500 500 2000];
+    CONFIG_strParams.vInitialLayersWidths = [30 30 30];
     
     % The final first layer width. This ratio shall be used to inflate all
     % other layers. Example: if init layer width = 100 and final one = 500,
     % then all final layers will be multiplied by 5.
-    CONFIG_strParams.nFinalFirstLayerWidth = 1000;
+    CONFIG_strParams.nFinalFirstLayerWidth = 100;
     
     % In case of depth, this is the final depth required.
     CONFIG_strParams.nFinalNumLayers = 3;
     
     % Number of iterations in backprop in which only upper layer weights
     % are updated
-    CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 2;
+    CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 0;
     
     % Number of epochs in backprop training the basic net before mapping (re-use) starts 
-    CONFIG_strParams.nBPNumEpochsBeforeMapping = 200;
+    CONFIG_strParams.nBPNumEpochsBeforeMapping = 50;
     
     % Number of epochs in backprop training during mapping (re-use) phase
     CONFIG_strParams.nBPNumEpochsDuringMapping = 20;
@@ -142,10 +143,10 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.nNumTrainedUpperLayers = 1; % It means update w_class and NW_weights{CONFIG_strParams.nInitialNumLayers} (last layer), so number is the execluding the top layer
     
     % Is pre-training enabled
-    CONFIG_strParams.bEnablePretraining = 1;
+    CONFIG_strParams.bEnablePretraining = 0;
         if (CONFIG_strParams.bEnablePretraining == 1) 
             % Pre-training (RBM) epochs
-            CONFIG_strParams.nPreTrainEpochs = 20;
+            CONFIG_strParams.nPreTrainEpochs = 50;
         else
             CONFIG_strParams.nPreTrainEpochs = 0;
         end % end if
