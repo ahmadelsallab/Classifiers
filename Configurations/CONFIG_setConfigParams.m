@@ -31,7 +31,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     % Type of minimizer
     % CG: Conjugate Gradients
     % SGD: Stochastic Gradient Descent
-    CONFIG_strParams.sMinimzerType = 'SGD'
+    CONFIG_strParams.sMinimzerType = 'SGD';
 	
 	% Flag to be set to 1 if doubling the dataset size is required each mapping phase
 	CONFIG_strParams.bDoubleTrainingSetSizeWithMapping = 0;
