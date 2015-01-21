@@ -108,9 +108,26 @@ function [NM_strNetParams, TST_strPerformanceInfo] = CLS_fineTuneAndClassifyDNN(
     %%%%%%%%%%%%%% END OF COMPUTING TRAINING MISCLASSIFICATION ERROR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     %%%%%%%%%%%%%%%%%%%% COMPUTE TEST MISCLASSIFICATION ERROR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        [TST_strPerformanceInfo.vTestErr(nEpoch)] =...
+        [TST_strPerformanceInfo.vTestErr(nEpoch), vObtainedTestTargets, vDesiredTestTargets] =...
             TST_computeClassificationErrDNN(mTestBatchData, mTestBatchTargets, NM_strNetParams, bMapping, CONFIG_strParams.eMappingDirection,...
                                          CONFIG_strParams.eMappingMode, nPhase, nNumPhases, 'EPOCH_ERR_CALC', nBitfieldLength, vChunkLength, vOffset, eFeaturesMode);
+                                         
+        % Build confusion matrix
+        [TST_strPerformanceInfo.mTestConfusionMatrix, TST_strPerformanceInfo.mTestNormalConfusionMatrix, TST_strPerformanceInfo.vTestNumTrainExamplesPerClass,...
+        TST_strPerformanceInfo.vTestAccuracyPerClass, TST_strPerformanceInfo.nTestOverallAccuracy] = LM_buildConfusionMatrix(vDesiredTestTargets, vObtainedTestTargets);
+        
+        % Calculate precision
+        pr = TST_strPerformanceInfo.mTestConfusionMatrix(1,1)/(TST_strPerformanceInfo.mTestConfusionMatrix(1,1) + TST_strPerformanceInfo.mTestConfusionMatrix(2,1));
+
+        % Calculate recall
+        re = TST_strPerformanceInfo.mTestConfusionMatrix(1,1)/(TST_strPerformanceInfo.mTestConfusionMatrix(1,1) + TST_strPerformanceInfo.mTestConfusionMatrix(1,2));       
+        
+        % Calculate F1 score
+        F1 = 2 * (pr*re)/(pr+re);
+        
+        fprintf(1, 'Recall = %d, Precision = %d, F1 score = %d\n', re, pr, F1);
+        fprintf(hFidLog, 'Recall = %d, Precision = %d, F1 score = %d\n', re, pr, F1);
+                                         
     %%%%%%%%%%%%%%% END OF COMPUTING TEST MISCLASSIFICATION ERROR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         [nNumTrainExamples nNumTrainFeatures nNumTrainBatches]=size(mTrainBatchData);
         [nNumTestExamples nNumTestFeatures nNumTestBatches]=size(mTestBatchData);

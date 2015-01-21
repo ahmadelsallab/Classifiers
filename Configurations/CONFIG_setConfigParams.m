@@ -19,7 +19,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     % sigmoid
     % tanh
     global sActivationFunction;
-    sActivationFunction = 'tanh';
+    sActivationFunction = 'sigmoid';
     % Desired reduction of the training set
     % It is represented in the form of percent of the original set size
 	CONFIG_strParams.bReduceTrainingSetSizeWithMapping = 0;
@@ -115,7 +115,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams()
     CONFIG_strParams.nInitialNumLayers = 3;% Execluding input and top/targets/output layer
     
     % The architecture of the initial net
-    CONFIG_strParams.vInitialLayersWidths = [30 30 30];
+    CONFIG_strParams.vInitialLayersWidths = [100 100 100];
     
     % The final first layer width. This ratio shall be used to inflate all
     % other layers. Example: if init layer width = 100 and final one = 500,
