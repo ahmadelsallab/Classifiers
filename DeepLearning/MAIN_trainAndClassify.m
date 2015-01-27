@@ -103,6 +103,17 @@ function MAIN_trainAndClassify(CONFIG_strParams)
             
 		case 'MatlabWorkspaceReadyTestTrainSplit'
             load(CONFIG_strParams.sInputDataWorkspace, 'mTrainFeatures', 'mTrainTargets', 'mTestFeatures', 'mTestTargets');
+            % Flip 2nd index (negative score)
+            % for i = 1 : size(mTrainFeatures, 1)
+                % x = mTrainFeatures(i, :);
+                % x(find(mod((1 : size(x, 2)), 2) == 0)) = x(find(mod((1 : size(x, 2)), 2) == 0)) * -1;
+                % mTrainFeatures(i, :) = x;
+            % end
+            % for i = 1 : size(mTestFeatures, 1)
+                % x = mTestFeatures(i, :);
+                % x(find(mod((1 : size(x, 2)), 2) == 0)) = x(find(mod((1 : size(x, 2)), 2) == 0)) * -1;
+                % mTestFeatures(i, :) = x;
+            % end
 			nNumPhases = floor(CONFIG_strParams.nFinalFirstLayerWidth/CONFIG_strParams.vInitialLayersWidths(1));
 			if(CONFIG_strParams.bDoubleTrainingSetSizeWithMapping == 1)							
 				nReducedSize = floor(size(mTrainTargets, 1) / nNumPhases);
