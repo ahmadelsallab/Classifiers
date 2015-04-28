@@ -75,7 +75,19 @@ while (layer >= 1)
                 case 'tanh'
                     Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(BP_wprobs{layer});
                 case 'sigmoid'
-                     Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(1-BP_wprobs{layer});
+                    Ix{layer} = (Ix_upper*w_upper').*BP_wprobs{layer}.*(1-BP_wprobs{layer});
+                case 'linear'
+                    % y_ink = w'*x;                    
+                    % If y_in = 0, f'(y_ink) = 0
+                    % Else f'(yink) = 1;
+                    % Get the zeros of the yink and multiply by them:
+                    % Note that: inside NM_layerActivation, activation is
+                    % set such that -ve values are dumped to 0's already
+                    % so what we need is to reconstruct matrix similar to BP_wprobs
+                    % but with 1's at the non-zeros to simulate f'(yink) = 1;
+                    f_dash_yink = BP_wprobs{layer};
+                    f_dash_yink(find(f_dash_yink > 0)) = 1;
+                    Ix{layer} = (Ix_upper*w_upper').*f_dash_yink;
             end            
             Ix{layer} = Ix{layer}(:,1:end-1);
 

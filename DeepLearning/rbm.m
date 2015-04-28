@@ -47,6 +47,7 @@ for epoch = 1 : maxepoch,
   end
 
   poshidprobs = 1./(1 + exp(-data*vishid - repmat(hidbiases,numcases,1)));    
+  %poshidprobs = tanh(-data*vishid - repmat(hidbiases,numcases,1));    
   batchposhidprobs(:,:,batch)=poshidprobs;
   posprods    = data' * poshidprobs;
   poshidact   = sum(poshidprobs);
@@ -59,6 +60,9 @@ for epoch = 1 : maxepoch,
 %%%%%%%%% START NEGATIVE PHASE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   negdata = 1./(1 + exp(-poshidstates*vishid' - repmat(visbiases,numcases,1)));
   neghidprobs = 1./(1 + exp(-negdata*vishid - repmat(hidbiases,numcases,1)));    
+  %negdata = tanh(-poshidstates*vishid' - repmat(visbiases,numcases,1));
+  %neghidprobs = tanh(-negdata*vishid - repmat(hidbiases,numcases,1));
+  
   negprods  = negdata'*neghidprobs;
   neghidact = sum(neghidprobs);
   negvisact = sum(negdata); 

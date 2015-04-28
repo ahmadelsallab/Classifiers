@@ -16,7 +16,9 @@ function [activation, augmentedActivation] = NM_layerActivation(data, weight)
 
         case 'sigmoid'
             activation = 1./(1 + exp(-data*weight));
-
+        case 'linear'
+            activation = (data*weight);
+            activation(find(activation < 0)) = 0;
     end
     
     

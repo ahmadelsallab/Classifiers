@@ -230,7 +230,7 @@ class Classifier(object):
             if(self.libSVMFormat == 'true'):
                 return self.labelsNamesMap[self.labels[1]]
             else:
-                return self.labels[0]        
+                return self.labels[1]        
          
 
     # For cross validation accuracy
