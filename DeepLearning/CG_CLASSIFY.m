@@ -92,12 +92,40 @@ while (layer >= 1)
             Ix{layer} = Ix{layer}(:,1:end-1);
 
     end % end-switch
-    
-	if(layer ~= 1)
-		dw{layer} = (BP_wprobs{layer-1})'*Ix{layer};
-	else
-		dw{layer} = XX'*Ix{layer};
+    global bWordEmbedding;
+    if(bWordEmbedding == 1)
+        if(layer == 2)
+            dw{layer} = XX'*Ix{layer};
+        else if(layer == 1)
+            % dWe = dw{1}
+            dw{layer} = 0.*NW_weights{layer};
+            % XX(i) = idx = [10, 150, 390, 40, 34] --> word indices
+            % XX--> Ncases x N, N = n-grams = 5 for example
+            for i = 1 : size(XX, 1)
+                offset = 1;
+                % N-gram = size(XX, 2) --> XX(i) = idx = [10, 150, 390, 40, 34] --> word indices
+                % N * embedding_size = size(We, 2) = size(NW_weights{layer}, 2)
+                embedding_size = size(NW_weights{layer}, 2) / size(XX, 2);
+                for j = 1 : size(XX, 2) - 1
+                    %dWe(word_idx) += delta_i;
+                    % Update only the entry of We that corresponds to the indexed word XX(i,j), with the error of this example i = Ix{layer}(i, :)
+                    % size(dw{layer}(XX(i,j), :)) = size(Ix{layer}(i, :)) = embedding size
+                    dw{layer}(XX(i,j), :) = dw{layer}(XX(i,j), :) + Ix{layer}(offset:offset + embedding_size, :);  
+                    offset = offset + embedding_size + 1;
+                end
+            end
+            
+        else
+            dw{layer} = (BP_wprobs{layer-1})'*Ix{layer};
+        end
+    else % No word embedding needed
+        if(layer ~= 1)
+            dw{layer} = (BP_wprobs{layer-1})'*Ix{layer};
+        else
+            dw{layer} = XX'*Ix{layer};
+        end
     end
+    
     Ix_upper = [];
 	Ix_upper = Ix{layer};
 	w_upper = [];
