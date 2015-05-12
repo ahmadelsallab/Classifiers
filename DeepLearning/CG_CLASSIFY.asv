@@ -18,10 +18,8 @@ function [f, df] = CG_CLASSIFY(VV, Dim, XX, target, eMappingMode, NW_unitWeights
 
 l = Dim';
 N = size(XX,1);
-global bWordEmbedding;
 global nGram;
-global nWordEmbeddingSize;
-
+global bWordEmbedding;
 
 switch(eMappingMode)
     case 'DEPTH_BASE_UNIT_MAPPING'
@@ -35,9 +33,9 @@ switch(eMappingMode)
         offset = 0;
         for layer = 1 : N_layers
             if(layer == 1 & bWordEmbedding == 1)
-                nSecondLayerSize = floor(l(layer+1) / nGram);
-                NW_weights{layer} = reshape(VV((offset+1) : (offset+(l(layer)+1)*nSecondLayerSize)), l(layer)+1, nSecondLayerSize);
-                offset = offset + (l(layer)+1)*nSecondLayerSize;
+                nSecondLayerSize = int(l(layer+1) / nGram);
+                NW_weights{layer} = reshape(VV((offset+1) : (offset+(l(layer)+1)*nSecondLayerSize))), l(layer)+1, l(layer+1));
+                offset = offset + (l(layer)+1)*l(layer+1);
             else
                 NW_weights{layer} = reshape(VV((offset+1) : (offset+(l(layer)+1)*l(layer+1))), l(layer)+1, l(layer+1));
                 offset = offset + (l(layer)+1)*l(layer+1);
@@ -104,11 +102,13 @@ while (layer >= 1)
             Ix{layer} = Ix{layer}(:,1:end-1);
 
     end % end-switch
+    global bWordEmbedding;
+    global nGram;
+    global nWordEmbeddingSize;
     if(bWordEmbedding == 1)
-        %if(layer == 2)
-        %    dw{layer} = XX'*Ix{layer};
-        %elseif(layer == 1)
-        if(layer == 1)
+        if(layer == 2)
+            dw{layer} = XX'*Ix{layer};
+        elseif(layer == 1)
             % dWe = dw{1}
             dw{layer} = 0.*NW_weights{layer};
             % BP_layerInputData(i) = idx = [10, 150, 390, 40, 34] --> word indices
@@ -122,7 +122,7 @@ while (layer >= 1)
                     %dWe(word_idx) += delta_i;
                     % Update only the entry of We that corresponds to the indexed word XX(i,j), with the error of this example i = Ix{layer}(i, :)
                     % size(dw{layer}(XX(i,j), :)) = size(Ix{layer}(i, :)) = embedding size
-                    dw{layer}(BP_layerInputData(i,j), :) = dw{layer}(BP_layerInputData(i,j), :) + Ix{layer}(i, offset:offset + embedding_size - 1);  
+                    dw{layer}(BP_layerInputData(i,j), :) = dw{layer}(BP_layerInputData(i,j), :) + Ix{layer}(offset:offset + embedding_size - 1, :);  
                     offset = offset + embedding_size;
                 end
             end

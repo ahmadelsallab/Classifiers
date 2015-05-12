@@ -20,7 +20,8 @@
 function [cWeights, NM_strNetParams] = BP_startBackProp(CONFIG_strParams, NM_strNetParams, mTrainBatchData, mTrainBatchTargets,...
                                                         nEpoch, vLayersSize, cPrevWeights, mPrevClassWeights, nPhase, nNumPhases, bMapping,...
                                                         nBitfieldLength, vChunkLength, vOffset, eFeaturesMode)
-        
+        global bWordEmbedding;
+        global nGram;
         % Obtain training set sizes
         [nNumExamplesPerBatch nNumFeaturesPerExample nNumBatches] = size(mTrainBatchData);
         
@@ -249,10 +250,16 @@ function [cWeights, NM_strNetParams] = BP_startBackProp(CONFIG_strParams, NM_str
                                     
                                     nOffset = 0;
                                     
-                                    % Net weights
+                                    % Net weights                                    
                                     for(layer = 1 : NM_strNetParams.nNumLayers)
-                                        NM_strNetParams.cWeights{layer} = reshape(X(nOffset+1:nOffset+(vLayersSize(layer)+1) * vLayersSize(layer+1)), vLayersSize(layer)+1, vLayersSize(layer+1));
-                                        nOffset = nOffset + (vLayersSize(layer)+1)*vLayersSize(layer+1);
+                                        if(layer == 1 & bWordEmbedding == 1)
+                                            nSecondLayerSize = floor(vLayersSize(layer+1) / nGram);
+                                            NM_strNetParams.cWeights{layer} = reshape(X(nOffset+1:nOffset+(vLayersSize(layer)+1) * nSecondLayerSize), vLayersSize(layer)+1, nSecondLayerSize);
+                                            nOffset = nOffset + (vLayersSize(layer)+1)*nSecondLayerSize;                                            
+                                        else
+                                            NM_strNetParams.cWeights{layer} = reshape(X(nOffset+1:nOffset+(vLayersSize(layer)+1) * vLayersSize(layer+1)), vLayersSize(layer)+1, vLayersSize(layer+1));
+                                            nOffset = nOffset + (vLayersSize(layer)+1)*vLayersSize(layer+1);
+                                        end
                                     end                               
 
                                     % Class weights

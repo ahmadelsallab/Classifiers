@@ -92,7 +92,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     CONFIG_strParams.nMaxFeaturesRange = 1;
     
     % Batch size to use when making batches (training and testing)
-    CONFIG_strParams.nBatchSize = 10;
+    CONFIG_strParams.nBatchSize = 100;
     
     % Is automating labeling enabled
     CONFIG_strParams.bAutoLabel = 0;
@@ -122,17 +122,13 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     
     global bWordEmbedding;
     bWordEmbedding = 1;
-    global nVocabularySize;
-    global nGram;
-    global nWordEmbeddingSize;
-    if(bWordEmbedding == 1)        
-        nWordEmbeddingSize = 50;
-        load(CONFIG_strParams.sInputDataWorkspace, 'vocab_size', 'ngram');
-        nVocabularySize = vocab_size;
-        nGram = ngram;
+    if(bWordEmbedding == 1)
+        CONFIG_strParams.nWordEmbeddingSize = 50;
+        load(CONFIG_strParams.sInputDataWorkspace, 'vocab_size');
+        CONFIG_strParams.nVocabularySize = vocab_size;
         % The architecture of the initial net
         %CONFIG_strParams.vInitialLayersWidths = [CONFIG_strParams.nVocabularySize CONFIG_strParams.nWordEmbeddingSize CONFIG_strParams.vInitialLayersWidths];
-        CONFIG_strParams.vInitialLayersWidths = [(nWordEmbeddingSize) CONFIG_strParams.vInitialLayersWidths];
+        CONFIG_strParams.vInitialLayersWidths = [CONFIG_strParams.nVocabularySize CONFIG_strParams.nWordEmbeddingSize CONFIG_strParams.vInitialLayersWidths];
         CONFIG_strParams.nInitialNumLayers = length(CONFIG_strParams.vInitialLayersWidths);
 
     end
@@ -147,7 +143,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     
     % Number of iterations in backprop in which only upper layer weights
     % are updated
-    CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 0;
+    CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 20;
     
     % Number of epochs in backprop training the basic net before mapping (re-use) starts 
     CONFIG_strParams.nBPNumEpochsBeforeMapping = 50;

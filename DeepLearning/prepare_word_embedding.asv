@@ -1,0 +1,75 @@
+txtFileName = '..\..\..\..\OMA\RAE\Datasets\Qalb\Qalb compiled.txt';
+
+ngram  = 5;
+
+% Open the file in UTF-8
+fid = fopen(txtFileName,'r','n','UTF-8');
+% Get the sentences line by line
+line = fgets(fid);
+%data = {};
+words = {};
+num = 1;
+allSStr = {};
+n_lines_max = 5000;
+% Load the positive and negative instances
+% Save in the positive and negative separate txt files
+% Save positive and negative cell arrays
+% Build the vocabulary
+while ((line > 0) & (num < n_lines_max))
+    %data = [data; line];
+    
+    % Get the words of each line
+    lineWords = splitLine(line);
+    allSStr{num} = lineWords';
+    words = [words; lineWords];
+    num = num + 1;
+    line = fgets(fid);
+end
+
+% Make unique vocabulary
+words = unique(words');
+wordMap = containers.Map(words,1:length(words));
+vocab_size = size(words, 2);
+save('word_embedding_ngram_validity.mat');
+
+% Now score for each sentence the indices of words
+
+allSNum = {};
+data = []; % Ncases x ngram
+labels = []; % valid = [0 1;] invalid = [1 0];
+for lineIdx = 1 : size(allSStr, 2)
+    lineWordsIndices = {};
+    for wordIdx = 1 : size(allSStr{lineIdx}, 2)
+        lineWordsIndices{wordIdx} = wordMap(allSStr{lineIdx}{wordIdx});
+    end
+    allSNum{lineIdx} = cell2mat(lineWordsIndices);
+    lineWordsMat = allSNum{lineIdx};
+    
+    offset = 1;
+    while (offset + ngram) <= size(lineWordsMat, 2)
+        % Create sets of ngram words indices
+        % Label them all as valid
+        valid_data = lineWordsMat(offset : offset + ngram);        
+        labels = [labels; [0 1];];
+        data = [data; valid_data];
+        random_vocab_word = 
+        
+        
+        offset = offset + ngram + 1;
+    end
+    
+    % Flip one index of each
+    % Label the flipped ones as invalid
+    
+    % Append to the data both valids and invalids
+    % Append to the labels both valids and invalids
+    
+end
+% Save the workspace
+allSNum_Qalb = allSNum;
+allSStr_Qalb = allSStr;
+save('word_embedding_ngram_validity.mat');
+
+% Close read and write files
+fclose(fid);
+

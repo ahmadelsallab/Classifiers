@@ -16,18 +16,15 @@ function [activation augmentedActivation] = NM_neuralNetActivation(data, weights
 
   for(layer = 1 : size(weights, 2))
 	global bWordEmbedding;
-    global nGram;
-    global nWordEmbeddingSize;
     if(bWordEmbedding && layer == 1)
-       layerActivation = zeros(size(rawLayerInputData, 1), nGram * nWordEmbeddingSize);
+       layerActivation = zeros(size(rawLayerInputData, 1), size(rawLayerInputData, 2) * size(weights{layer}, 2));
        for i = 1 : size(rawLayerInputData, 1)
-           Xe = [];
-           for j = 1 : nGram
+           Xe = zeros(1, size(rawLayerInputData, 2) * size(weights{layer}, 2));
+           for j = 1 : size(rawLayerInputData, 2)
               Xe = [Xe NM_lookupWe(rawLayerInputData(i, j), weights{layer})];
               
            end
            layerActivation(i, :) = Xe;
-           augmentedLayerActivation = [layerActivation ones(size(rawLayerInputData,1), 1)];
        end
     else
         [layerActivation augmentedLayerActivation]= NM_layerActivation(layerInputData, weights{layer});

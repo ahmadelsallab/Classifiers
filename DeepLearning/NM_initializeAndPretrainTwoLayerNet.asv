@@ -31,19 +31,13 @@ function [cWeights, mHiddenActivations] = NM_initializeAndPretrainTwoLayerNet(cW
     % Get the sizes of the layer input activation data    
     global bWordEmbedding;
     global nVocabularySize;
-    global nGram;
-    global nWordEmbeddingSize;
-    
+
     if(strcmp(eFeaturesMode, 'Raw') & ctrLayer == 1)
         nFirstLayerWidth = nBitfieldLength;
     elseif(bWordEmbedding == 1 & ctrLayer == 1)
         nFirstLayerWidth = nVocabularySize - 1;
     else
         nFirstLayerWidth = size(mVisibleActivations, 2);
-    end
-    
-    if(bWordEmbedding == 1 & ctrLayer == 2)
-       nFirstLayerWidth = nGram * nWordEmbeddingSize;
     end
     
     

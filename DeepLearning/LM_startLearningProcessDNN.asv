@@ -120,7 +120,7 @@ function LM_startLearningProcessDNN(CONFIG_strParams,...
         global bWordEmbedding;
         global nVocabularySize;
         if(bWordEmbedding == 1)
-            nFeaturesVecLen = nVocabularySize - 1;
+            nFeaturesVecLen = nVocabularySize;
         end
         
         % Initiaize Net

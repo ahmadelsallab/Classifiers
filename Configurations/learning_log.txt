@@ -1,14 +1,14 @@
-Training sub-net with arch 100 100 100 
+Training sub-net with arch 50 100 100 100 
 Initializing net...
-Initializing Layer 1 with RBM: 11385-100 
+Initializing Layer 1 with RBM: 18949-50 
 Pre-training RBM
-Initializing Layer 2 with RBM: 100-100 
+Initializing Layer 2 with RBM: 50-100 
 Pre-training RBM
 Initializing Layer 3 with RBM: 100-100 
 Pre-training RBM
+Initializing Layer 4 with RBM: 100-100 
+Pre-training RBM
 Initializing done successfuly
 Fine tuning ...
-Before epoch 1 Train # misclassified: 536 (from 900). Test # misclassified: 100 (from 200) 	 	 
-Before epoch 2 Train # misclassified: 235 (from 900). Test # misclassified: 97 (from 200) 	 	 
-Before epoch 3 Train # misclassified: 147 (from 900). Test # misclassified: 100 (from 200) 	 	 
-Before epoch 4 Train # misclassified: 69 (from 900). Test # misclassified: 93 (from 200) 	 	 
+Recall = 7.840270e-001, Precision = 4.853760e-001, F1 score = 5.995699e-001
+Before epoch 1 Train # misclassified: 8258 (from 16520). Test # misclassified: 931 (from 1830) 	 	 
