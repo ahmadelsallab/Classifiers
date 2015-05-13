@@ -1,6 +1,6 @@
 Training sub-net with arch 50 100 100 100 
 Initializing net...
-Initializing Layer 1 with RBM: 18949-50 
+Initializing Layer 1 with RBM: 18950-50 
 Pre-training RBM
 Initializing Layer 2 with RBM: 50-100 
 Pre-training RBM
@@ -10,5 +10,118 @@ Initializing Layer 4 with RBM: 100-100
 Pre-training RBM
 Initializing done successfuly
 Fine tuning ...
-Recall = 7.840270e-001, Precision = 4.853760e-001, F1 score = 5.995699e-001
-Before epoch 1 Train # misclassified: 8258 (from 16520). Test # misclassified: 931 (from 1830) 	 	 
+Recall = 6.700913e-001, Precision = 4.745352e-001, F1 score = 5.556081e-001
+Before epoch 1 Train # misclassified: 8187 (from 16500). Test # misclassified: 939 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 2 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 3 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 4 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 5 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 6 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 7 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 8 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 9 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 10 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 11 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 12 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 13 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 14 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 15 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 16 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 17 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 18 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 19 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 20 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 21 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 22 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 23 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 24 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 25 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 26 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 27 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 28 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 29 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 30 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 31 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 32 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 33 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 34 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 35 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 36 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 37 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 38 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 39 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 40 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 41 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 42 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 43 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 44 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 45 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 46 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 47 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 48 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 49 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Recall = 5.810502e-001, Precision = 4.743709e-001, F1 score = 5.223191e-001
+Before epoch 50 Train # misclassified: 8199 (from 16500). Test # misclassified: 931 (from 1800) 	 	 
+Fine tuning done successfuly
+Update Net
+Classification error of phase 1: 931
+Training sub-net with arch 50 100 100 100 
+Initializing net...
+Initializing Layer 1 with RBM: 18950-50 
+Pre-training RBM
+Initializing Layer 2 with RBM: 50-100 
+Pre-training RBM
+Initializing Layer 3 with RBM: 100-100 
+Pre-training RBM
+Initializing Layer 4 with RBM: 100-100 
+Pre-training RBM
+Initializing done successfuly
+Fine tuning ...

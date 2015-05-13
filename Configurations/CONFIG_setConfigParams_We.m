@@ -92,7 +92,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     CONFIG_strParams.nMaxFeaturesRange = 1;
     
     % Batch size to use when making batches (training and testing)
-    CONFIG_strParams.nBatchSize = 10;
+    CONFIG_strParams.nBatchSize = 100;
     
     % Is automating labeling enabled
     CONFIG_strParams.bAutoLabel = 0;
@@ -173,7 +173,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     
     % Flag to indicate if it's desired to update weights in each epoch of
     % backprop only if error is minimized otherwise it's not updated
-    CONFIG_strParams.bBPKeepMinWeightsEveryEpoch = 1;   
+    CONFIG_strParams.bBPKeepMinWeightsEveryEpoch = 0;   
     
     % Backprop divides each batch into mini batches, each composed of
     % nBPNumExamplesInMiniBatch examples

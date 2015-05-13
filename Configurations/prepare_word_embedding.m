@@ -1,7 +1,7 @@
-clear,clc;
+
 txtFileName = '..\..\..\..\OMA\Code\Datasets\Qalb\Qalb compiled.txt';
 
-ngram  = 5;
+
 
 % Open the file in UTF-8
 fid = fopen(txtFileName,'r','n','UTF-8');
@@ -32,7 +32,7 @@ end
 words = unique(words');
 wordMap = containers.Map(words,1:length(words));
 vocab_size = length(words);
-save('input_data_We.mat');
+save(['input_data_We_' num2str(ngram) '.mat']);
 
 % Now score for each sentence the indices of words
 
@@ -71,7 +71,7 @@ for lineIdx = 1 : size(allSStr, 2)
     
 end
 % Save the workspace
-save('input_data_We.mat');
+save(['input_data_We_' num2str(ngram) '.mat']);
 
 % Close read and write files
 fclose(fid);

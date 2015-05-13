@@ -1,8 +1,8 @@
 clear, clc, close all;
 
 fprintf(1, 'Configuring...\n');
-
-preProFile = 'input_data_We.mat';
+ngram  = 5;
+preProFile = ['input_data_We_' num2str(ngram) '.mat'];
 
 % read in polarity dataset
 if ~exist(preProFile,'file')
