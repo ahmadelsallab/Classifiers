@@ -4,13 +4,15 @@ txtFileName = '..\..\..\..\OMA\Code\Datasets\Qalb\Qalb compiled.txt';
 
 
 % Open the file in UTF-8
-fid = fopen(txtFileName,'r','n','UTF-8');
+fid_Qalb = fopen(txtFileName,'r','n','UTF-8');
 % Get the sentences line by line
-line = fgets(fid);
+line = fgets(fid_Qalb);
 %mFeatures = {};
 words = {};
 num = 1;
 allSStr = {};
+
+%%%%%%%%%%%%%%%%%% QALB VOC %%%%%%%%%%%%%%%%%%%%%%%
 n_lines_max = 1000;
 % Load the positive and negative instances
 % Save in the positive and negative separate txt files
@@ -24,16 +26,54 @@ while ((line > 0) & (num < n_lines_max))
     allSStr{num} = lineWords';
     words = [words; lineWords];
     num = num + 1;
-    line = fgets(fid);
+    line = fgets(fid_Qalb);
     fprintf(1, 'Reading line number %d\n', num);
 end
 
 % Make unique vocabulary
-words = unique(words');
+words_Qalb = unique(words');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ATB VOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+txtFileName = '..\..\..\..\OMA\Code\Datasets\ATB\input\ATB1v3_UTF8.txt';
+annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
+
+    fid_ATB = fopen(txtFileName,'r','n','UTF-8');
+    labels = csvread(annotationsFileName);
+        % Get the sentences line by line
+
+    line = fgets(fid_ATB);
+    %data = {};
+    words = {};
+    allSStr_pos = {};
+    allSStr_neg = {};
+    num = 1;
+    num_pos = 1;
+    num_neg = 1;
+
+    % Load the positive and negative instances
+    % Save in the positive and negative separate txt files
+    % Save positive and negative cell arrays
+    % Build the vocabulary
+    while line > 0        
+        %data = [data; line];
+        
+        % Get the words of each line
+        %lineWords = textscan(line,'%s','delimiter',' ');
+        lineWords = splitLine(line);
+        words = [words; lineWords];
+        num = num + 1;
+        line = fgets(fid_ATB);
+    end
+    
+
+
+    % Make unique vocabulary
+    words_ATB = unique(words');
+words = [words_Qalb words_ATB];
 wordMap = containers.Map(words,1:length(words));
 vocab_size = length(words);
 save(['input_data_We_' num2str(ngram) '.mat']);
-
+save('vocab_We.mat', 'words');
 % Now score for each sentence the indices of words
 
 allSNum = {};
@@ -74,5 +114,6 @@ end
 save(['input_data_We_' num2str(ngram) '.mat']);
 
 % Close read and write files
-fclose(fid);
+fclose(fid_Qalb);
+fclose(fid_ATB);
 

@@ -20,7 +20,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     % tanh
     % linear
     global sActivationFunction;
-    sActivationFunction = 'tanh';
+    sActivationFunction = 'sigmoid';
     % Desired reduction of the training set
     % It is represented in the form of percent of the original set size
 	CONFIG_strParams.bReduceTrainingSetSizeWithMapping = 0;
@@ -72,7 +72,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     
     % Name of the input data structures workspace
     %CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data_red.mat'];
-    CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data_We.mat'];
+    CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data_We_5.mat'];
     
     
     % Name of the input data structures workspace
@@ -118,7 +118,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     CONFIG_strParams.nInitialNumLayers = 3;% Execluding input and top/targets/output layer
     
     % The architecture of the initial net
-    CONFIG_strParams.vInitialLayersWidths = [100 100 100];
+    CONFIG_strParams.vInitialLayersWidths = [1000];
     
     global bWordEmbedding;
     bWordEmbedding = 1;
@@ -140,17 +140,25 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     % The final first layer width. This ratio shall be used to inflate all
     % other layers. Example: if init layer width = 100 and final one = 500,
     % then all final layers will be multiplied by 5.
-    CONFIG_strParams.nFinalFirstLayerWidth = 100;
+    if(bWordEmbedding == 1) 
+        CONFIG_strParams.nFinalFirstLayerWidth = CONFIG_strParams.vInitialLayersWidths(1);
+    else
+        CONFIG_strParams.nFinalFirstLayerWidth = 100;
+    end
     
     % In case of depth, this is the final depth required.
-    CONFIG_strParams.nFinalNumLayers = 3;
+    if(bWordEmbedding == 1) 
+        CONFIG_strParams.nFinalNumLayers = CONFIG_strParams.nInitialNumLayers;
+    else
+        CONFIG_strParams.nFinalNumLayers = 3;
+    end
     
     % Number of iterations in backprop in which only upper layer weights
     % are updated
     CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 0;
     
     % Number of epochs in backprop training the basic net before mapping (re-use) starts 
-    CONFIG_strParams.nBPNumEpochsBeforeMapping = 50;
+    CONFIG_strParams.nBPNumEpochsBeforeMapping = 20;
     
     % Number of epochs in backprop training during mapping (re-use) phase
     CONFIG_strParams.nBPNumEpochsDuringMapping = 20;
