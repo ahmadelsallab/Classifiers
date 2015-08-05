@@ -1,61 +1,17 @@
-Training sub-net with arch 50 1000 
+Training sub-net with arch 50 
 Initializing net...
-Initializing Layer 1 with RBM: 37163-50 
-Pre-training RBM
-Initializing Layer 2 with RBM: 50-1000 
+Initializing Layer 1 with RBM: 28104-50 
 Pre-training RBM
 Initializing done successfuly
 Fine tuning ...
-Recall = 1.141553e-003, Precision = 1, F1 score = 2.280502e-003
-Before epoch 1 Train # misclassified: 8281 (from 16500). Test # misclassified: 875 (from 1800) 	 	 
-Recall = 5.513699e-001, Precision = 4.964029e-001, F1 score = 5.224446e-001
-Before epoch 2 Train # misclassified: 8026 (from 16500). Test # misclassified: 883 (from 1800) 	 	 
-Recall = 6.792237e-001, Precision = 4.987427e-001, F1 score = 5.751571e-001
-Before epoch 3 Train # misclassified: 7947 (from 16500). Test # misclassified: 879 (from 1800) 	 	 
-Recall = 5.936073e-001, Precision = 4.878049e-001, F1 score = 5.355304e-001
-Before epoch 4 Train # misclassified: 7918 (from 16500). Test # misclassified: 902 (from 1800) 	 	 
-Recall = 6.769406e-001, Precision = 4.954052e-001, F1 score = 5.721177e-001
-Before epoch 5 Train # misclassified: 7873 (from 16500). Test # misclassified: 887 (from 1800) 	 	 
-Recall = 7.694064e-001, Precision = 4.884058e-001, F1 score = 5.975177e-001
-Before epoch 6 Train # misclassified: 7860 (from 16500). Test # misclassified: 908 (from 1800) 	 	 
-Recall = 7.762557e-002, Precision = 4.722222e-001, F1 score = 1.333333e-001
-Before epoch 7 Train # misclassified: 8190 (from 16500). Test # misclassified: 884 (from 1800) 	 	 
-Recall = 6.392694e-001, Precision = 4.856895e-001, F1 score = 5.519961e-001
-Before epoch 8 Train # misclassified: 7777 (from 16500). Test # misclassified: 909 (from 1800) 	 	 
-Recall = 5.742009e-001, Precision = 4.926543e-001, F1 score = 5.303110e-001
-Before epoch 9 Train # misclassified: 7856 (from 16500). Test # misclassified: 891 (from 1800) 	 	 
-Recall = 4.783105e-001, Precision = 4.946871e-001, F1 score = 4.863610e-001
-Before epoch 10 Train # misclassified: 7736 (from 16500). Test # misclassified: 885 (from 1800) 	 	 
-Recall = 5.719178e-001, Precision = 4.835907e-001, F1 score = 5.240586e-001
-Before epoch 11 Train # misclassified: 7810 (from 16500). Test # misclassified: 910 (from 1800) 	 	 
-Recall = 6.586758e-001, Precision = 4.877430e-001, F1 score = 5.604662e-001
-Before epoch 12 Train # misclassified: 7809 (from 16500). Test # misclassified: 905 (from 1800) 	 	 
-Recall = 5.182648e-001, Precision = 4.704663e-001, F1 score = 4.932102e-001
-Before epoch 13 Train # misclassified: 8043 (from 16500). Test # misclassified: 933 (from 1800) 	 	 
-Recall = 5.068493e-001, Precision = 4.779333e-001, F1 score = 4.919668e-001
-Before epoch 14 Train # misclassified: 7958 (from 16500). Test # misclassified: 917 (from 1800) 	 	 
-Recall = 6.700913e-001, Precision = 4.851240e-001, F1 score = 5.627996e-001
-Before epoch 15 Train # misclassified: 7927 (from 16500). Test # misclassified: 912 (from 1800) 	 	 
-Recall = 6.586758e-001, Precision = 4.848739e-001, F1 score = 5.585673e-001
-Before epoch 16 Train # misclassified: 7860 (from 16500). Test # misclassified: 912 (from 1800) 	 	 
-Recall = 5.022831e-001, Precision = 4.710921e-001, F1 score = 4.861878e-001
-Before epoch 17 Train # misclassified: 7763 (from 16500). Test # misclassified: 930 (from 1800) 	 	 
-Recall = 5.296804e-001, Precision = 4.788442e-001, F1 score = 5.029810e-001
-Before epoch 18 Train # misclassified: 7727 (from 16500). Test # misclassified: 917 (from 1800) 	 	 
-Recall = 8.162100e-001, Precision = 4.854039e-001, F1 score = 6.087697e-001
-Before epoch 19 Train # misclassified: 7882 (from 16500). Test # misclassified: 919 (from 1800) 	 	 
-Recall = 6.621005e-002, Precision = 4.172662e-001, F1 score = 1.142857e-001
-Before epoch 20 Train # misclassified: 8279 (from 16500). Test # misclassified: 899 (from 1800) 	 	 
+Recall = 7.215190e-001, Precision = 7.702703e-001, F1 score = 7.450980e-001
+Before epoch 1 Train # misclassified: 11240 (from 27900). Test # misclassified: 39 (from 100) 	 	 
+Recall = 1, Precision = 7.900000e-001, F1 score = 8.826816e-001
+Before epoch 2 Train # misclassified: 6005 (from 27900). Test # misclassified: 21 (from 100) 	 	 
 Fine tuning done successfuly
 Update Net
-Classification error of phase 1: 875
-Training sub-net with arch 50 1000 
-Initializing net...
-Initializing Layer 1 with RBM: 37163-50 
-Pre-training RBM
-Initializing Layer 2 with RBM: 50-1000 
-Pre-training RBM
-Initializing done successfuly
-Fine tuning ...
-Recall = 5.296804e-001, Precision = 4.788442e-001, F1 score = 5.029810e-001
-Before epoch 1 Train # misclassified: 7727 (from 16500). Test # misclassified: 917 (from 1800) 	 	 
+Classification error of phase 1: 21
+Start Train Building Confusion Matrix...
+End Train Building Confusion Matrix
+Start Test Building Confusion Matrix...
+End Test Building Confusion Matrix

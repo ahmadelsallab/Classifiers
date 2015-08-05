@@ -6,7 +6,14 @@ function [mClassWeights, mPrevClassWeights] = NM_initializeClassLayer(eMappingMo
     
     % The nTopLayerSize execluding (before) target layer, including bias
     % (+1)
-    nTopLayerSize = size(mTopLayerWeights, 2) + 1;
+    global bWordEmbedding;
+    global nGram;
+    global nNumLayersWe;
+    if(bWordEmbedding == 1 && nNumLayersWe == 1)
+        nTopLayerSize = nGram * size(mTopLayerWeights, 2) + 1;
+    else
+        nTopLayerSize = size(mTopLayerWeights, 2) + 1;
+    end;
     
     if(bMapping == 1)
         switch(eMappingDirection)
@@ -100,7 +107,7 @@ function [mClassWeights, mPrevClassWeights] = NM_initializeClassLayer(eMappingMo
 
         end % end switch eMappingDirection
     else
-        mClassWeights = 0.1*randn(size(mTopLayerWeights,2)+ 1, nNumTargets);
+        mClassWeights = 0.1*randn(nTopLayerSize, nNumTargets);
         
     end % end if-else bMapping
 end % end function

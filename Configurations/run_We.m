@@ -1,16 +1,20 @@
 clear, clc, close all;
 
-fprintf(1, 'Configuring...\n');
-ngram  = 5;
-preProFile = ['input_data_We_' num2str(ngram) '.mat'];
 
+ngram  = 2;
+preProFile = ['input_data_We_' num2str(ngram) '.mat'];
+bReadyVocab = 0;
 % read in polarity dataset
 if ~exist(preProFile,'file')
-    prepare_word_embedding;
+    if(bReadyVocab == 0)
+        prepare_word_embedding;
+    else
+        prepare_word_embedding_ready_lexicon;
+    end
 end
     
 
-
+fprintf(1, 'Configuring...\n');
 % Start Configuration
 [CONFIG_strParams] = CONFIG_setConfigParams_We();
 

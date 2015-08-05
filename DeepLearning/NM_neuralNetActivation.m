@@ -26,8 +26,20 @@ function [activation augmentedActivation] = NM_neuralNetActivation(data, weights
               Xe = [Xe NM_lookupWe(rawLayerInputData(i, j), weights{layer})];
               
            end
-           layerActivation(i, :) = Xe;
-           augmentedLayerActivation = [layerActivation ones(size(rawLayerInputData,1), 1)];
+            global sActivationFunction;
+            switch(sActivationFunction)
+                case 'tanh'                   
+                    Xe = tanh(Xe);
+
+                case 'sigmoid'
+                    Xe = 1./(1 + exp(Xe));
+                case 'linear'
+                    Xe(find(Xe < 0)) = 0;
+            end
+
+
+            layerActivation(i, :) = Xe;
+            augmentedLayerActivation = [layerActivation ones(size(rawLayerInputData,1), 1)];
        end
     else
         [layerActivation augmentedLayerActivation]= NM_layerActivation(layerInputData, weights{layer});

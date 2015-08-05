@@ -1,6 +1,7 @@
-
+%clear, clc;
 txtFileName = '..\..\..\..\OMA\Code\Datasets\Qalb\Qalb compiled.txt';
 
+%ngram = 2;
 
 
 % Open the file in UTF-8
@@ -13,7 +14,7 @@ num = 1;
 allSStr = {};
 
 %%%%%%%%%%%%%%%%%% QALB VOC %%%%%%%%%%%%%%%%%%%%%%%
-n_lines_max = 1000;
+n_lines_max = 0;
 % Load the positive and negative instances
 % Save in the positive and negative separate txt files
 % Save positive and negative cell arrays
@@ -34,8 +35,10 @@ end
 words_Qalb = unique(words');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ATB VOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-txtFileName = '..\..\..\..\OMA\Code\Datasets\ATB\input\ATB1v3_UTF8.txt';
-annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
+%txtFileName = '..\..\..\..\OMA\Code\Datasets\ATB\input\ATB1v3_UTF8.txt';
+%annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
+txtFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
+annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\annotation_sentiment.txt';
 
     fid_ATB = fopen(txtFileName,'r','n','UTF-8');
     labels = csvread(annotationsFileName);
@@ -46,7 +49,7 @@ annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
     words = {};
     allSStr_pos = {};
     allSStr_neg = {};
-    num = 1;
+    %num = 1;
     num_pos = 1;
     num_neg = 1;
 
@@ -60,6 +63,7 @@ annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
         % Get the words of each line
         %lineWords = textscan(line,'%s','delimiter',' ');
         lineWords = splitLine(line);
+        allSStr{num} = lineWords';
         words = [words; lineWords];
         num = num + 1;
         line = fgets(fid_ATB);
@@ -70,6 +74,7 @@ annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
     % Make unique vocabulary
     words_ATB = unique(words');
 words = [words_Qalb words_ATB];
+words = unique(words);
 wordMap = containers.Map(words,1:length(words));
 vocab_size = length(words);
 save(['input_data_We_' num2str(ngram) '.mat']);

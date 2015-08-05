@@ -72,11 +72,11 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     
     % Name of the input data structures workspace
     %CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data_red.mat'];
-    CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data_We_5.mat'];
+    CONFIG_strParams.sInputDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\input_data_We_2.mat'];
     
     
     % Name of the input data structures workspace
-    CONFIG_strParams.sNetDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\final_net.mat'];
+    CONFIG_strParams.sNetDataWorkspace = [CONFIG_strParams.sConfigEnvPath '\final_net_We.mat'];
 
     % Form the full path of the features file
     CONFIG_strParams.fullRawDataFileName = ['..\..\output_results\' CONFIG_strParams.sFeaturesFileName];
@@ -92,7 +92,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     CONFIG_strParams.nMaxFeaturesRange = 1;
     
     % Batch size to use when making batches (training and testing)
-    CONFIG_strParams.nBatchSize = 100;
+    CONFIG_strParams.nBatchSize = 1000;
     
     % Is automating labeling enabled
     CONFIG_strParams.bAutoLabel = 0;
@@ -125,6 +125,8 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     global nVocabularySize;
     global nGram;
     global nWordEmbeddingSize;
+    global nNumLayersWe;
+    nNumLayersWe = 1;
     if(bWordEmbedding == 1)        
         nWordEmbeddingSize = 50;
         load(CONFIG_strParams.sInputDataWorkspace, 'vocab_size', 'ngram');
@@ -132,7 +134,12 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
         nGram = ngram;
         % The architecture of the initial net
         %CONFIG_strParams.vInitialLayersWidths = [CONFIG_strParams.nVocabularySize CONFIG_strParams.nWordEmbeddingSize CONFIG_strParams.vInitialLayersWidths];
-        CONFIG_strParams.vInitialLayersWidths = [(nWordEmbeddingSize) CONFIG_strParams.vInitialLayersWidths];
+        %CONFIG_strParams.vInitialLayersWidths = [(nWordEmbeddingSize) CONFIG_strParams.vInitialLayersWidths];
+        if(nNumLayersWe == 1)
+            CONFIG_strParams.vInitialLayersWidths = [(nWordEmbeddingSize)];
+        else
+            CONFIG_strParams.vInitialLayersWidths = [(nWordEmbeddingSize) CONFIG_strParams.vInitialLayersWidths];
+        end
         CONFIG_strParams.nInitialNumLayers = length(CONFIG_strParams.vInitialLayersWidths);
 
     end
@@ -158,7 +165,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     CONFIG_strParams.nBPNumEpochsForUpperLayerTraining = 0;
     
     % Number of epochs in backprop training the basic net before mapping (re-use) starts 
-    CONFIG_strParams.nBPNumEpochsBeforeMapping = 20;
+    CONFIG_strParams.nBPNumEpochsBeforeMapping = 3;
     
     % Number of epochs in backprop training during mapping (re-use) phase
     CONFIG_strParams.nBPNumEpochsDuringMapping = 20;
@@ -269,7 +276,7 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
 	
 	% The number or mapping phases is detected by CONFIG_strParams.nDesiredAdaptive mappings
 	% Valid only in CONFIG_strParams.eMappingMode = 'ADAPTIVE'
-	CONFIG_strParams.nDesiredAdaptivePhases = 2
+	CONFIG_strParams.nDesiredAdaptivePhases = 1
 
     % Depth Cascaded Data Representation Modes
     % REPLICATED
