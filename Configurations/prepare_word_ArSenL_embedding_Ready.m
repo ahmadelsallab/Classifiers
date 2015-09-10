@@ -3,7 +3,11 @@
 %indices = '..\..\..\..\OMA\Code\Datasets\ArSenL\indices.txt';
 vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\vocabulary.txt';
 %corpus = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
-
+global CONFIG_strParamsGUI;
+if(~isempty(CONFIG_strParamsGUI))
+    vocabulary = CONFIG_strParamsGUI.sVocabularyFilePath;
+    %indices = CONFIG_strParamsGUI.sIndicesFilePath;
+end
 % Get the scores of words
 fid_voc = fopen(vocabulary,'r','n','UTF-8');
 

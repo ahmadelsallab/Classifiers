@@ -5,6 +5,10 @@ ngram  = 1;
 preProFile = ['input_data_ArSenL_Embedding_' num2str(ngram) '.mat'];
 global bLexiconEmbeddingObjectiveScoreIncluded;
 bLexiconEmbeddingObjectiveScoreIncluded = 0;
+global CONFIG_strParamsGUI;
+if(~isempty(CONFIG_strParamsGUI))
+    bLexiconEmbeddingObjectiveScoreIncluded = CONFIG_strParamsGUI.bLexiconEmbeddingObjectiveScoreIncluded;
+end
 % read in polarity dataset
 if ~exist(preProFile,'file')
     %prepare_word_ArSenL_embedding;

@@ -1,17 +1,8 @@
 Training sub-net with arch 50 
 Initializing net...
-Initializing Layer 1 with RBM: 28104-50 
+Initializing Layer 1 with RBM: 4911-50 
 Pre-training RBM
 Initializing done successfuly
 Fine tuning ...
-Recall = 7.215190e-001, Precision = 7.702703e-001, F1 score = 7.450980e-001
-Before epoch 1 Train # misclassified: 11240 (from 27900). Test # misclassified: 39 (from 100) 	 	 
-Recall = 1, Precision = 7.900000e-001, F1 score = 8.826816e-001
-Before epoch 2 Train # misclassified: 6005 (from 27900). Test # misclassified: 21 (from 100) 	 	 
-Fine tuning done successfuly
-Update Net
-Classification error of phase 1: 21
-Start Train Building Confusion Matrix...
-End Train Building Confusion Matrix
-Start Test Building Confusion Matrix...
-End Test Building Confusion Matrix
+Recall = 1, Precision = 4.975000e-001, F1 score = 6.644407e-001
+Before epoch 1 Train # misclassified: 13008 (from 26000). Test # misclassified: 1005 (from 2000) 	 	 

@@ -1,6 +1,9 @@
 %clear, clc;
 txtFileName = '..\..\..\..\OMA\Code\Datasets\Qalb\Qalb compiled.txt';
-
+global CONFIG_strParamsGUI;
+if(~isempty(CONFIG_strParamsGUI))
+    txtFileName = CONFIG_strParamsGUI.sUnsupervisedWeDatasetPath;
+end
 %ngram = 2;
 
 
@@ -15,6 +18,10 @@ allSStr = {};
 
 %%%%%%%%%%%%%%%%%% QALB VOC %%%%%%%%%%%%%%%%%%%%%%%
 n_lines_max = 0;
+global CONFIG_strParamsGUI;
+if(~isempty(CONFIG_strParamsGUI))
+    n_lines_max = CONFIG_strParamsGUI.nMaxNumLines;
+end
 % Load the positive and negative instances
 % Save in the positive and negative separate txt files
 % Save positive and negative cell arrays
@@ -39,6 +46,11 @@ words_Qalb = unique(words');
 %annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
 txtFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
 annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\annotation_sentiment.txt';
+global CONFIG_strParamsGUI;
+if(~isempty(CONFIG_strParamsGUI))
+    txtFileName = CONFIG_strParamsGUI.sSupervisedDataSetPath;
+    annotationsFileName = CONFIG_strParamsGUI.sAnnotationsFilePath;
+end
 
     fid_ATB = fopen(txtFileName,'r','n','UTF-8');
     labels = csvread(annotationsFileName);

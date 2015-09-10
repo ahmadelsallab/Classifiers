@@ -4,8 +4,7 @@
 % None.
 % Output:
 % CONFIG_strParams: Structure of all configuration parameters
-function [CONFIG_strParams] = CONFIG_setConfigParams_We()
-
+function [CONFIG_strParams] = CONFIG_setConfigParams_We()    
     % Path of the classifier code. For relative path: it'll run from the
     % configuration env. path, so it should be relative to it
     CONFIG_strParams.sDefaultClassifierPath = '..\DeepLearning\';
@@ -21,6 +20,10 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     % linear
     global sActivationFunction;
     sActivationFunction = 'sigmoid';
+    global CONFIG_strParamsGUI;
+    if(~isempty(CONFIG_strParamsGUI))
+        sActivationFunction = CONFIG_strParamsGUI.sActivationfunction;
+    end
     % Desired reduction of the training set
     % It is represented in the form of percent of the original set size
 	CONFIG_strParams.bReduceTrainingSetSizeWithMapping = 0;
@@ -119,7 +122,10 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     
     % The architecture of the initial net
     CONFIG_strParams.vInitialLayersWidths = [1000];
-    
+    global CONFIG_strParamsGUI;
+    if(~isempty(CONFIG_strParamsGUI))
+        CONFIG_strParams.vInitialLayersWidths = CONFIG_strParamsGUI.vLayersSizes;
+    end
     global bWordEmbedding;
     bWordEmbedding = 1;
     global nVocabularySize;
@@ -129,6 +135,10 @@ function [CONFIG_strParams] = CONFIG_setConfigParams_We()
     nNumLayersWe = 1;
     if(bWordEmbedding == 1)        
         nWordEmbeddingSize = 50;
+        global CONFIG_strParamsGUI;
+        if(~isempty(CONFIG_strParamsGUI))
+            nWordEmbeddingSize = CONFIG_strParamsGUI.nEmbeddingSize;
+        end
         load(CONFIG_strParams.sInputDataWorkspace, 'vocab_size', 'ngram');
         nVocabularySize = vocab_size;
         nGram = ngram;
