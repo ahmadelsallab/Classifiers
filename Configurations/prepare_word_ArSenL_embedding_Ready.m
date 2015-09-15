@@ -2,6 +2,10 @@
 %clear, clc;
 %indices = '..\..\..\..\OMA\Code\Datasets\ArSenL\indices.txt';
 vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\vocabulary.txt';
+delimiter = ';';
+%vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\ArSenL RAE\No separate embedding (token-level)\Extended lexicon - ATB (tokens).txt';
+%delimiter = '	';
+
 %corpus = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
 global CONFIG_strParamsGUI;
 if(~isempty(CONFIG_strParamsGUI))
@@ -21,7 +25,7 @@ while (line > 0)
     
     %line = strtrim(line);
 
-    lineScoresSplit = textscan(line,'%s','delimiter',';');
+    lineScoresSplit = textscan(line,'%s','delimiter',delimiter);
 
     fprintf(1, 'Reading line %d\n', num);    
 
