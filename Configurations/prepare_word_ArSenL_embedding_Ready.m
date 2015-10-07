@@ -1,10 +1,9 @@
-
 %clear, clc;
 %indices = '..\..\..\..\OMA\Code\Datasets\ArSenL\indices.txt';
-vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\vocabulary.txt';
-delimiter = ';';
-%vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\ArSenL RAE\No separate embedding (token-level)\Extended lexicon - ATB (tokens).txt';
-%delimiter = '	';
+%vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\vocabulary.txt';
+%delimiter = ';';
+vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\ArSenL RAE\No separate embedding (word-level)\Extended lexicon - ATB (words).txt';
+delimiter = '	';
 
 %corpus = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
 global CONFIG_strParamsGUI;
@@ -46,6 +45,7 @@ while (line > 0)
     line = fgets(fid_voc);
     num = num + 1;
 end
+mTargets = mTargets * 100;
 vocab_size = length(words);
 
 save('vocab_ArSenL_Embedding.mat', 'words');
