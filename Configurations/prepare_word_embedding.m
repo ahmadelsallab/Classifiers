@@ -1,5 +1,5 @@
 %clear, clc;
-txtFileName = '..\..\..\..\OMA\Code\Datasets\Qalb\Qalb compiled.txt';
+txtFileName = '..\..\..\..\OMA\Code\Datasets\Qalb\Qalb.txt';
 global CONFIG_strParamsGUI;
 if(~isempty(CONFIG_strParamsGUI))
     txtFileName = CONFIG_strParamsGUI.sUnsupervisedWeDatasetPath;
@@ -10,7 +10,7 @@ end
 % Open the file in UTF-8
 fid_Qalb = fopen(txtFileName,'r','n','UTF-8');
 % Get the sentences line by line
-line = fgets(fid_Qalb);
+line = fgetl(fid_Qalb);
 %mFeatures = {};
 words = {};
 num = 1;
@@ -28,13 +28,15 @@ end
 % Build the vocabulary
 while ((line > 0) & (num < n_lines_max))
     %mFeatures = [mFeatures; line];
-    
+    line = strtrim(line);
     % Get the words of each line
-    lineWords = splitLine(line);
+    %lineWords = splitLine(line);
+    lineWords = regexp(line,' ','split');
+    lineWords = lineWords';
     allSStr{num} = lineWords';
     words = [words; lineWords];
     num = num + 1;
-    line = fgets(fid_Qalb);
+    line = fgetl(fid_Qalb);
     fprintf(1, 'Reading line number %d\n', num);
 end
 
@@ -44,8 +46,13 @@ words_Qalb = unique(words');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ATB VOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %txtFileName = '..\..\..\..\OMA\Code\Datasets\ATB\input\ATB1v3_UTF8.txt';
 %annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ATB\annotations.txt';
-txtFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
+%txtFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
+%txtFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\ArSenL RAE\No separate embedding (token-level)\ATB lemmas (tokens).txt';
+txtFileName = '..\..\..\..\OMA\Code\Datasets\ATB\experiments\corpus preprocessed\ATB (preprocessed tokens).txt';
+
 annotationsFileName = '..\..\..\..\OMA\Code\Datasets\ArSenL\annotation_sentiment.txt';
+%txtFileName = '..\..\..\..\OMA\Code\Datasets\Eshrag\ArabicTweets (token-level).txt';
+%annotationsFileName = '..\..\Datasets\Eshrag\annotation_sentiment.txt';
 global CONFIG_strParamsGUI;
 if(~isempty(CONFIG_strParamsGUI))
     txtFileName = CONFIG_strParamsGUI.sSupervisedDataSetPath;
@@ -53,10 +60,10 @@ if(~isempty(CONFIG_strParamsGUI))
 end
 
     fid_ATB = fopen(txtFileName,'r','n','UTF-8');
-    labels = csvread(annotationsFileName);
-        % Get the sentences line by line
+    %labels = csvread(annotationsFileName);
+    % Get the sentences line by line
 
-    line = fgets(fid_ATB);
+    line = fgetl(fid_ATB);
     %data = {};
     words = {};
     allSStr_pos = {};
@@ -71,14 +78,17 @@ end
     % Build the vocabulary
     while line > 0        
         %data = [data; line];
-        
+        line = strtrim(line);
         % Get the words of each line
         %lineWords = textscan(line,'%s','delimiter',' ');
-        lineWords = splitLine(line);
+        %lineWords = splitLine(line);        
+        lineWords = regexp(line,' ','split');
+        lineWords = lineWords';
+        
         allSStr{num} = lineWords';
         words = [words; lineWords];
         num = num + 1;
-        line = fgets(fid_ATB);
+        line = fgetl(fid_ATB);
     end
     
 
@@ -121,7 +131,7 @@ for lineIdx = 1 : size(allSStr, 2)
         mTargets = [mTargets; [1 0];];
         mFeatures = [mFeatures; invalid_data];
         
-        offset = offset + ngram;
+        offset = offset + 1;
     end
     
 

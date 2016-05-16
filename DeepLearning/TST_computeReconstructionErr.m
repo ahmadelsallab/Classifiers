@@ -68,6 +68,6 @@ function [nErr] = TST_computeReconstructionErr(mBatchData, NM_strNetParams, nBit
         
     end % end for-batches
      
-    nErr = nErrReconstruction;
+    nErr = nErrReconstruction / nNumBatches;
 
 end % end function

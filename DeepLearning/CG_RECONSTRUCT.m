@@ -84,7 +84,11 @@ mAugActivationData{N_layers/2} = [mAugActivationData{N_layers/2} ones(N, 1)];
 % Ix1 = Ix1(:,1:end-1);
 % dw1 =  XX'*Ix1;
 
-f = -1 / N * (sum(sum( (BP_layerInputData - mReconstructedBatchData{N_layers/2}(:, 1:end-1)).^2 )));
+% f = -1/N*sum(sum( XX(:,1:end-1).*log(XXout) + (1-XX(:,1:end-1)).*log(1-XXout)));
+BP_reconstruction = mReconstructedBatchData{N_layers/2}(:, 1:end-1);
+% http://ufldl.stanford.edu/wiki/index.php/Softmax_Regression#Relationship_to_Logistic_Regression
+f = -1/N*sum(sum( BP_layerInputData.*log(BP_reconstruction) + (1-BP_layerInputData).*log(1-BP_reconstruction)));
+%f = -1 / N * (sum(sum( (BP_layerInputData.*log() - mReconstructedBatchData{N_layers/2}(:, 1:end-1)).^2 )));
 
 IO = 1/N*(mReconstructedBatchData{N_layers/2}(:,1:end-1) - BP_layerInputData);
 

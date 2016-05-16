@@ -75,11 +75,12 @@ function [NM_strNetParams, TST_strPerformanceInfo] = TUNE_fineTuneDeepAuto(NM_st
         end
 
         % Log the result to display and log file
-        fprintf(hFidLog,'Before epoch %d Train # misclassified: %d (from %d). Test # misclassified: %d (from %d) \t \t \n',...
-                nEpoch, TST_strPerformanceInfo.vTrainErr(nEpoch), nNumTrainExamples * nNumTrainBatches, TST_strPerformanceInfo.vTestErr(nEpoch),nNumTestExamples * nNumTestBatches);
+         
+        fprintf(hFidLog,'Before epoch %d Train squared error: %6.3f Test squared error: %6.3f \t \t \n',...
+                nEpoch, TST_strPerformanceInfo.vTrainErr(nEpoch), TST_strPerformanceInfo.vTestErr(nEpoch));
 
-        fprintf(1,'Before epoch %d Train # misclassified: %d (from %d). Test # misclassified: %d (from %d) \t \t \n',...
-                nEpoch, TST_strPerformanceInfo.vTrainErr(nEpoch), nNumTrainExamples * nNumTrainBatches, TST_strPerformanceInfo.vTestErr(nEpoch),nNumTestExamples * nNumTestBatches);
+        fprintf(1,'Before epoch %d Train squared error: %6.3f Test squared error: %6.3f \t \t \n',...
+                nEpoch, TST_strPerformanceInfo.vTrainErr(nEpoch), TST_strPerformanceInfo.vTestErr(nEpoch));
 
         % Keep the weigths if error is minimized
         if TST_strPerformanceInfo.vTestErr(nEpoch) <= TST_strPerformanceInfo.nMinTestError

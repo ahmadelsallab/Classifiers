@@ -61,7 +61,7 @@ end % end-switch
 
 targetout = exp(BP_wprobs{N_layers}*w_class);
 targetout = targetout./repmat(sum(targetout,2),1,size(target,2));
-f = -sum(sum( target(:,1:end).*log(targetout))) ;
+f = -sum(sum( target(:,1:end).*log(targetout))) ; % http://ufldl.stanford.edu/wiki/index.php/Softmax_Regression#Relationship_to_Logistic_Regression
 
 IO = (targetout-target(:,1:end));
 Ix_class=IO; 

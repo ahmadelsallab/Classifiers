@@ -53,7 +53,7 @@ N = size(XX,1);
   w7probs = 1./(1 + exp(-w6probs*w7)); w7probs = [w7probs  ones(N,1)];
   XXout = 1./(1 + exp(-w7probs*w8));
 
-f = -1/N*sum(sum( XX(:,1:end-1).*log(XXout) + (1-XX(:,1:end-1)).*log(1-XXout)));
+f = -1/N*sum(sum( XX(:,1:end-1).*log(XXout) + (1-XX(:,1:end-1)).*log(1-XXout))); % http://ufldl.stanford.edu/wiki/index.php/Softmax_Regression#Relationship_to_Logistic_Regression
 IO = 1/N*(XXout-XX(:,1:end-1));
 Ix8=IO; 
 dw8 =  w7probs'*Ix8;

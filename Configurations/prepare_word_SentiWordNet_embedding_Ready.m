@@ -2,7 +2,7 @@
 %indices = '..\..\..\..\OMA\Code\Datasets\ArSenL\indices.txt';
 %vocabulary = '..\..\..\..\OMA\Code\Datasets\ArSenL\vocabulary.txt';
 %delimiter = ';';
-vocabulary = '..\..\..\..\OMA\Code\Datasets\ATB\experiments\files for arsenl embedding\separate embedding (token-level)\Extended Lexicon - ATB_QALB (tokens).txt';
+vocabulary = '..\..\..\..\OMA\Code\Datasets\IMDB\IMDB2000ExtendedLexicon';
 delimiter = '	';
 
 %corpus = '..\..\..\..\OMA\Code\Datasets\ArSenL\corpus lemmas.txt';
@@ -48,7 +48,7 @@ end
 mTargets = mTargets * 100;
 vocab_size = length(words);
 
-save('vocab_ArSenL_Embedding.mat', 'words');
-save(['input_data_ArSenL_Embedding_' num2str(ngram) '.mat']);
+save('vocab_SentiWordNet_Embedding.mat', 'words');
+save(['input_data_SentiWordNet_Embedding_' num2str(ngram) '.mat']);
 
 fclose(fid_voc);
